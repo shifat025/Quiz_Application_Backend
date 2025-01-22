@@ -1,0 +1,14 @@
+asgiref
+Django
+djangorestframework
+djangorestframework_simplejwt
+drf-yasg
+inflection
+packaging
+PyJWT
+python-dotenv
+pytz
+PyYAML
+sqlparse
+tzdata
+uritemplate
