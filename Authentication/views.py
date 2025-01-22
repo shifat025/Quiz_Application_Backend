@@ -24,21 +24,32 @@ class LoginView(APIView):
         except User.DoesNotExist:
             return Response({'error': "Invalid Credentials"})
         
-        user = authenticate(username = get_email.username, password = password)
+        authenticated_user = authenticate(username = get_email.username, password = password)
 
-        if user:
-            login(request, user)
+        if authenticated_user:
+            login(request, authenticated_user)
 
-            user_role = user.role.role  # Access the role via related name
-            refresh = RefreshToken.for_user(user)
+            user_role = authenticated_user.role.role  # Access the role via related name          
 
             if user_role:
                 role = 'admin'
             else:
                 role = 'user'
-
-            user_id = user.id  # Get the user ID
-            return Response({'access': str(refresh.access_token),'refresh': str(refresh),'role': role,'user_id': user_id}, status= status.HTTP_200_OK)
+            # Prepare user details
+            user_data = {
+                'id': str(authenticated_user.id),
+                'full_name': f"{authenticated_user.first_name} {authenticated_user.last_name}",
+                'email': authenticated_user.email,
+                'role': role
+            }
+            
+            refresh = RefreshToken.for_user(authenticated_user)
+            # Prepare tokens
+            tokens = {
+                'access': str(refresh.access_token),
+                'refresh': str(refresh)
+            }
+            return Response({'user': user_data, 'tokens': tokens}, status= status.HTTP_200_OK)
         else:
             return Response({'error': "Invalid Credentials"}, status=status.HTTP_400_BAD_REQUEST)
         
