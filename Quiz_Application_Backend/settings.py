@@ -33,8 +33,8 @@ DEBUG = True
 
 DEBUG=True
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://render.com/']
-
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://render.com/',"https://quiz-application-8thb.onrender.com/"]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -70,7 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 
 ROOT_URLCONF = 'Quiz_Application_Backend.urls'
 

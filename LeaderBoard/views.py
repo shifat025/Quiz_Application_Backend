@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class QuizDataApiView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request , quizSetId):
         quiz_set = get_object_or_404(QuizSet, id= quizSetId) # Get the quiz set by its ID or return a 404 error if not found
         
