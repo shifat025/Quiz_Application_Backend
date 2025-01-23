@@ -44,3 +44,10 @@ class QuizSetCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuizSet
         fields = ['id', 'title', 'description', 'status', 'thumbnail', 'created_at']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Check if this is an update (PATCH/PUT) request
+        if self.context['request'].method in ['PUT', 'PATCH']:
+            self.fields['status'].read_only = False  # Allow `status` to be updated

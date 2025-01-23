@@ -13,6 +13,9 @@ class UserQuizSetView(ListAPIView):
     serializer_class = UserQuizSetSerializer
     queryset = QuizSet.objects.all()
 
+    def get_queryset(self):
+        return QuizSet.objects.filter(status='published')  # Filter queryset to include only published QuizSets
+
 class GetQuizView(APIView):
     def get(self, request, id):
         try:
