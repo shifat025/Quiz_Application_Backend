@@ -51,3 +51,12 @@ class QuizSetCreateSerializer(serializers.ModelSerializer):
         # Check if this is an update (PATCH/PUT) request
         if self.context['request'].method in ['PUT', 'PATCH']:
             self.fields['status'].read_only = False  # Allow `status` to be updated
+
+    def validate(self, attrs):
+        # Validate that the quiz set has at least one question before publishing.
+        if self.instance:  # If updating
+            if attrs.get('status') == 'published' and self.instance.question.count() == 0:
+                raise serializers.ValidationError(
+                    {"error": "Cannot publish a QuizSet with no questions."}
+                )
+        return attrs

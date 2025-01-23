@@ -13,3 +13,4 @@ sqlparse
 tzdata
 uritemplate
 django-cors-headers
+
