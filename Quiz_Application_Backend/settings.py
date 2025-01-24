@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',
-    'rest_framework_simplejwt.token_blacklist',  # Optional: To enable token blacklisting
+    # 'rest_framework_simplejwt.token_blacklist',  # Optional: To enable token blacklisting
     'Authentication',
     'Admin_Management',
     'LeaderBoard',
