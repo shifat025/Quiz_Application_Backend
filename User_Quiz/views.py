@@ -49,9 +49,14 @@ class SubmitQuizView(APIView):
                 quiz_set = quiz_set,
                 )
             attempt.submitted_answers = answers if answers else {}
-            attempt.is_attempted = True
-            attempt.total_attempts += 1
+            if not attempt.is_attempted:  # Increment total attempts only if it's a first attempt
+                attempt.is_attempted = True
+                attempt.total_attempts += 1
+                quiz_set.total_attempts += 1  # Increment QuizSet total_attempts
+                quiz_set.save()
+
             attempt.save()
+           
 
             return Response(
                 {

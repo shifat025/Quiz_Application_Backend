@@ -16,6 +16,7 @@ class QuizSet(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     thumbnail = models.CharField(max_length=150)
+    total_attempts = models.PositiveIntegerField(default=0, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):

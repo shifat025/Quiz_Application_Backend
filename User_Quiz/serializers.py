@@ -28,10 +28,11 @@ class UserQuizSetSerializer(serializers.ModelSerializer):
 
 class GetQuizSerializer(serializers.ModelSerializer):
     questions = serializers.SerializerMethodField()
+    total_attempts = serializers.IntegerField(read_only = True)
      
     class Meta:
         model = QuizSet
-        fields = ['id', 'title', 'description', 'created_at',  'questions']
+        fields = ['id', 'title', 'description', 'created_at',  'questions','total_attempts']
 
     def get_questions(self, obj):
         # Get only questions for the specific QuizSet
